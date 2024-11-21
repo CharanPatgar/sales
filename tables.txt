@@ -1,0 +1,35 @@
+Sales Data
+Sales ID,Region,Product ID,Sales Date,Sales Amount
+1,North,101,01-01-2022,1000
+2,North,102,01-05-2022,800
+3,South,101,01-10-2022,1200
+4,South,102,01-15-2022,1000
+5,East,101,01-20-2022,900
+6,East,102,01-25-2022,700
+7,West,101,01-30-2022,1100
+8,West,102,02-01-2022,900
+
+Customer Data
+Customer ID,Region,Age,Gender
+1,North,25,Male
+2,North,30,Female
+3,South,28,Male
+4,South,22,Female
+5,East,35,Male
+6,East,40,Female
+7,West,20,Male
+8,West,38,Female
+
+Product Data
+Product ID,Product Name,Product Category
+101,TV,Electronics
+102,Shirt,Fashion
+103,Laptop,Electronics
+104,Dress,Fashion
+
+Region Data
+Region,Region Name
+North,North Region
+South,South Region
+East,East Region
+West,West Region

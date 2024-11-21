@@ -1,0 +1,391 @@
+The goal for us as an organization is to understand your pattern of representation from a data slicing perspective.
+
+The dataset is again from a retail domain to build a sales performance dashboard for a retail sector. Our expectations are seeking to gain insights into their sales performance across different regions, products, and customer demographics. 
+
+Below is a brief overview of the project requirements:
+
+Project Objective:
+Create an interactive dashboard to visualize sales performance data and provide insights into regional sales trends, product category sales distribution, and customer demographics.
+
+Data Requirements:
+We will provide you with four tables containing sales data, product data, customer data, and region data. The tables will contain the following fields:
+
+·  Sales Data: Sales ID, Region, Product ID, Sales Date, Sales Amount
+
+·  Product Data: Product ID, Product Name, Product Category
+
+·  Customer Data: Customer ID, Region, Age, Gender
+
+·  Region Data: Region, Region Name
+
+Dashboard Requirements:
+The dashboard should include the following visualizations:
+
+1.    Regional Sales Comparison: A bar chart to compare sales across different regions.
+
+2.    Product Category Sales: A pie chart to show the sales distribution across different product categories.
+
+3.    Customer Demographics: A scatter plot to show the relationship between customer age and sales amount.
+
+4.    Quarterly Sales Trend: A line chart to show the sales trend across different quarters.
+
+Tools and Technologies:
+You are free to choose any tool or technology to build the dashboard, such as Streamlit, Power BI, or any open-source tools.
+
+Deliverables:
+We expect you to deliver the following:
+
+1.    A fully functional and interactive dashboard with the required visualizations.
+
+2.    A brief report explaining the insights gained from the data and the recommendations for future sales strategies.
+
+
+
+
+
+When you join Sales Data to Customer Data, the Region column is used as the key.
+This results in every customer in a region being matched with every sale in that region, leading to duplicates.
+
+
+
+
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, ScatterChart, Scatter, LineChart, Line } from 'recharts';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+
+// Sample Data (matching the PDF)
+const salesData = [
+  { region: 'North', amount: 1800 },
+  { region: 'South', amount: 2200 },
+  { region: 'East', amount: 1600 },
+  { region: 'West', amount: 2000 }
+];
+
+const productData = [
+  { name: 'Electronics', value: 2900 },
+  { name: 'Fashion', value: 2100 }
+];
+
+const customerData = [
+  { age: 25, sales: 1000 },
+  { age: 30, sales: 800 },
+  { age: 28, sales: 1200 },
+  { age: 22, sales: 1000 },
+  { age: 35, sales: 900 },
+  { age: 40, sales: 700 },
+  { age: 20, sales: 1100 },
+  { age: 38, sales: 900 }
+];
+
+const quarterlyData = [
+  { quarter: 'Q1 2022', sales: 4800 },
+  { quarter: 'Q2 2022', sales: 5200 },
+  { quarter: 'Q3 2022', sales: 4600 },
+  { quarter: 'Q4 2022', sales: 5000 }
+];
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+const SalesDashboard = () => {
+  return (
+    <div className="p-6 space-y-6 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold text-center mb-6">Retail Sales Performance Dashboard</h1>
+      
+      {/* Regional Sales Comparison */}
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>Regional Sales Comparison</CardTitle>
+        </CardHeader>
+        <CardContent className="flex justify-center">
+          <BarChart width={600} height={300} data={salesData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="region" />
+            <YAxis label={{ value: 'Sales Amount', angle: -90, position: 'insideLeft' }} />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="amount" fill="#8884d8" />
+          </BarChart>
+        </CardContent>
+      </Card>
+
+      {/* Product Category Sales */}
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>Product Category Sales Distribution</CardTitle>
+        </CardHeader>
+        <CardContent className="flex justify-center">
+          <PieChart width={600} height={400}>
+            <Pie
+              data={productData}
+              cx={300}
+              cy={200}
+              labelLine={true}
+              outerRadius={120}
+              fill="#8884d8"
+              dataKey="value"
+              label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+            >
+              {productData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </CardContent>
+      </Card>
+
+      {/* Customer Demographics */}
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>Customer Age vs Sales</CardTitle>
+        </CardHeader>
+        <CardContent className="flex justify-center">
+          <ScatterChart
+            width={600}
+            height={400}
+            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+          >
+            <CartesianGrid />
+            <XAxis 
+              type="number" 
+              dataKey="age" 
+              name="Age" 
+              label={{ value: 'Customer Age', position: 'insideBottom', offset: -10 }}
+            />
+            <YAxis 
+              type="number" 
+              dataKey="sales" 
+              name="Sales" 
+              label={{ value: 'Sales Amount', angle: -90, position: 'insideLeft' }}
+            />
+            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+            <Scatter name="Customers" data={customerData} fill="#8884d8" />
+          </ScatterChart>
+        </CardContent>
+      </Card>
+
+      {/* Quarterly Sales Trend */}
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>Quarterly Sales Trend</CardTitle>
+        </CardHeader>
+        <CardContent className="flex justify-center">
+          <LineChart width={600} height={300} data={quarterlyData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="quarter" />
+            <YAxis label={{ value: 'Sales Amount', angle: -90, position: 'insideLeft' }} />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="sales" stroke="#8884d8" strokeWidth={3} />
+          </LineChart>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export default SalesDashboard;
+
+
+
+claud
+
+import pandas as pd
+import streamlit as st
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Create sample DataFrames based on the PDF
+def create_sample_dataframes():
+    # Sales Data
+    sales_data = pd.DataFrame({
+        'Sales ID': range(1, 9),
+        'Region': ['North', 'North', 'South', 'South', 'East', 'East', 'West', 'West'],
+        'Product ID': [101, 102, 101, 102, 101, 102, 101, 102],
+        'Customer ID': range(1, 9),  # Matching Customer ID
+        'Sales Date': pd.date_range(start='2022-01-01', periods=8),
+        'Sales Amount': [1000, 800, 1200, 1000, 900, 700, 1100, 900]
+    })
+
+    # Product Data
+    product_data = pd.DataFrame({
+        'Product ID': [101, 102, 103, 104],
+        'Product Name': ['TV', 'Shirt', 'Laptop', 'Dress'],
+        'Product Category': ['Electronics', 'Fashion', 'Electronics', 'Fashion']
+    })
+
+    # Customer Data
+    customer_data = pd.DataFrame({
+        'Customer ID': range(1, 9),
+        'Region': ['North', 'North', 'South', 'South', 'East', 'East', 'West', 'West'],
+        'Age': [25, 30, 28, 22, 35, 40, 20, 38],
+        'Gender': ['Male', 'Female', 'Male', 'Female', 'Male', 'Female', 'Male', 'Female']
+    })
+
+    # Region Data
+    region_data = pd.DataFrame({
+        'Region': ['North', 'South', 'East', 'West'],
+        'Region Name': ['North Region', 'South Region', 'East Region', 'West Region']
+    })
+
+    return sales_data, product_data, customer_data, region_data
+
+# Main Streamlit App
+def main():
+    st.set_page_config(layout="wide", page_title="Retail Sales Performance Dashboard")
+    
+    # Create sample dataframes
+    sales_data, product_data, customer_data, region_data = create_sample_dataframes()
+    
+    # Merge data with correct relationships
+    merged_data = (sales_data.merge(product_data, on="Product ID")
+                   .merge(region_data, left_on="Region", right_on="Region")
+                   .merge(customer_data, on=["Customer ID", "Region"]))
+
+    # Sidebar Filters
+    st.sidebar.header("🔍 Dashboard Filters")
+    
+    # Region Filter
+    all_regions = merged_data["Region Name"].unique()
+    region_filter = st.sidebar.multiselect(
+        "Select Region",
+        options=all_regions,
+        default=all_regions
+    )
+    
+    # Product Category Filter
+    all_categories = merged_data["Product Category"].unique()
+    product_filter = st.sidebar.multiselect(
+        "Select Product Category",
+        options=all_categories,
+        default=all_categories
+    )
+    
+    # Age Range Filter
+    min_age = int(merged_data["Age"].min())
+    max_age = int(merged_data["Age"].max())
+    age_range = st.sidebar.slider(
+        "Select Age Range", 
+        min_value=min_age, 
+        max_value=max_age, 
+        value=(min_age, max_age)
+    )
+    
+    # Gender Filter
+    all_genders = merged_data["Gender"].unique()
+    gender_filter = st.sidebar.multiselect(
+        "Select Gender",
+        options=all_genders,
+        default=all_genders
+    )
+
+    # Filter Data
+    # Use the original merged_data when no specific filter is selected
+    filtered_data = merged_data[
+        # Region filter (if nothing selected, use all)
+        (merged_data["Region Name"].isin(region_filter) if region_filter else True) &
+        
+        # Product Category filter (if nothing selected, use all)
+        (merged_data["Product Category"].isin(product_filter) if product_filter else True) &
+        
+        # Age Range filter
+        (merged_data["Age"].between(age_range[0], age_range[1])) &
+        
+        # Gender filter (if nothing selected, use all)
+        (merged_data["Gender"].isin(gender_filter) if gender_filter else True)
+    ]
+
+    # Dashboard Title
+    st.title("🏪 Retail Sales Performance Dashboard")
+
+    # Check if filtered data is empty
+    if filtered_data.empty:
+        st.error("No data matches the current filters. Please adjust your selection.")
+        st.stop()
+
+    # Metrics Row
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        st.metric(label="Total Sales", 
+                  value=f"${filtered_data['Sales Amount'].sum():,.0f}", 
+                  delta=f"{filtered_data['Sales Amount'].sum() / merged_data['Sales Amount'].sum():.1%}")
+    
+    with col2:
+        st.metric(label="Avg Sales per Transaction", 
+                  value=f"${filtered_data['Sales Amount'].mean():,.0f}")
+    
+    with col3:
+        st.metric(label="Top Region", 
+                  value=filtered_data.groupby("Region Name")["Sales Amount"].sum().idxmax())
+    
+    with col4:
+        st.metric(label="Top Product Category", 
+                  value=filtered_data.groupby("Product Category")["Sales Amount"].sum().idxmax())
+
+    # Create two columns for charts
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        # Regional Sales Comparison
+        st.header("Regional Sales Comparison")
+        region_sales = filtered_data.groupby("Region Name")["Sales Amount"].sum().reset_index()
+        st.bar_chart(region_sales.set_index("Region Name"))
+    
+    with col2:
+        # Product Category Sales
+        st.header("Product Category Sales")
+        category_sales = filtered_data.groupby("Product Category")["Sales Amount"].sum()
+        fig, ax = plt.subplots()
+        category_sales.plot(kind='pie', autopct='%1.1f%%', ax=ax)
+        plt.title("Sales Distribution by Product Category")
+        st.pyplot(fig)
+    
+    # Create two more columns for additional charts
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        # Customer Demographics
+        st.header("Customer Demographics")
+        fig, ax = plt.subplots(figsize=(10, 6))
+        sns.scatterplot(
+            data=filtered_data, 
+            x="Age", 
+            y="Sales Amount", 
+            hue="Gender", 
+            ax=ax
+        )
+        plt.title("Age vs Sales by Gender")
+        st.pyplot(fig)
+    
+    with col2:
+        # Quarterly Sales Trend
+        st.header("Quarterly Sales Trend")
+        filtered_data['Quarter'] = pd.to_datetime(filtered_data['Sales Date']).dt.to_period('Q').astype(str)
+        quarterly_sales = filtered_data.groupby('Quarter')['Sales Amount'].sum().reset_index()
+        quarterly_sales['Quarter'] = quarterly_sales['Quarter'].astype(str)
+        st.line_chart(quarterly_sales.set_index('Quarter'))
+
+    # Additional insights
+    st.header("Key Insights")
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.subheader("Regional Performance")
+        region_performance = filtered_data.groupby("Region Name")["Sales Amount"].sum()
+        st.write(region_performance)
+    
+    with col2:
+        st.subheader("Product Category Performance")
+        category_performance = filtered_data.groupby("Product Category")["Sales Amount"].sum()
+        st.write(category_performance)
+    
+    with col3:
+        st.subheader("Gender Sales Distribution")
+        gender_performance = filtered_data.groupby("Gender")["Sales Amount"].sum()
+        st.write(gender_performance)
+
+# Run the app
+if __name__ == "__main__":
+    main()
