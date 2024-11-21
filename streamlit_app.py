@@ -150,7 +150,7 @@ with tabs[3]:
 
     - Age Groups with Highest Spending: Customers aged 20-35 contribute the most to sales. This is a prime demographic to target with personalized marketing campaigns.
     - Gender Distribution: Male and female customers show balanced contributions to sales, but males slightly outspend females in electronics.
-    - Customer Demographics and Behavior: Younger customers (20-25) show increasing purchasing activity, while older demographics (40+) contribute less.
+    - Customer Demographics and Behavior: Younger customers (20-28) show increasing purchasing activity, while older demographics (40+) contribute less.
     """)
     st.write("""
                 - Age Range: 20-40 years
@@ -162,7 +162,7 @@ with tabs[4]:
     st.subheader("Key Findings:")
     st.write("""    
 
-    - Highest Sales Quarter: The Last quarter (Q4) has the highest sales, followed by the First Quarterv(Q1), likely due to end/start of the month.
+    - Highest Sales Quarter: The Last quarter (Q4) has the highest sales, followed by the Second Quarter(Q2), likely due to end/start of the month.
     - Steady Decline: Sales show a slight decline from Q2 to Q3, indicating reduced customer activity or seasonal effects.
     - Quarterly Trends: The sales trend suggests a strong start to the Month, followed by consistent but lower performance in subsequent quarters, and the go high for the last one.
     """)
@@ -190,7 +190,7 @@ with tabs[5]:
     
     st.subheader("3. Quarterly analysis")
     st.write("""
-             - Sales are strongest in Q1, driven by high customer demand early in the year(month), likely influenced by seasonal factors and the start of new purchasing cycles. However, sales gradually decline across Q2 to Q4, reflecting a steady but lower performance in later months. This highlights the importance of early-year activity in shaping overall sales trends.
+             - Sales are strongest in Q4, driven by high customer demand early in the year(month), likely influenced by seasonal factors and the start of new purchasing cycles. However, sales gradually decline across Q2 to Q4, reflecting a steady but lower performance in mid months and then increase at the end. This highlights the importance of month start/end activity in shaping overall sales trends.
 
              """)
     
@@ -219,8 +219,8 @@ with tabs[5]:
     st.subheader("4. Optimize Quarterly Sales Performance:")
     st.write("""             
 
-                - Prepare for Q1, the strongest quarter, by ramping up inventory, launching holiday-specific promotions, and leveraging the seasonal buying trend.
-                - Introduce mid-year and end-of-year campaigns to stimulate demand during Q2 and Q4, such as flash sales or promotions or exclusive product launches.
+                - Prepare for Q4/Q2, the strongest quarter, by ramping up inventory, launching holiday-specific promotions, and leveraging the seasonal buying trend.
+                - Introduce mid-year campaigns to stimulate demand during Q2 to Q3, such as flash sales or promotions or exclusive product launches.
              """)
     st.subheader("5. Other Strategies: ")
     st.write("""
