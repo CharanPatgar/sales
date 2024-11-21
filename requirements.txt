@@ -1,6 +1,4 @@
 pandas
 streamlit
 plotly
-plotly.express
-express
-plotly==5.16.1
+
