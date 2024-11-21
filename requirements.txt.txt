@@ -1,7 +1,6 @@
 pandas
 streamlit
-<<<<<<< HEAD
 plotly
-=======
-plotly
->>>>>>> 59a89b30c682fe33939fb89765d901684b234d91
+plotly.express
+express
+plotly==5.16.1
